@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" width="96" height="96" role="img" aria-label="Empiria eta mark">
+  <rect x="2" y="2" width="92" height="92" rx="22" fill="currentColor"/>
+  <path d="M32 54 V32 C32 20 62 20 62 32 V74"
+        fill="none" stroke="#0b0d10" stroke-width="8"
+        stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
