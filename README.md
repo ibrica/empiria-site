@@ -120,14 +120,20 @@ The site publishes `info@empiriausluge.hr`, so routing has to exist or mail to i
 
 ## Meta checklist
 
-Order matters — do these top to bottom.
+- [x] Email Routing live, `info@empiriausluge.hr` receives mail
+- [x] Site live at `https://empiriausluge.hr` with company name, address, OIB and MBS
+- [x] Domain verified in Business Manager (meta-tag method, verified 16 Sep 2026)
+- [ ] App settings -> **Privacy Policy URL:** `https://empiriausluge.hr/privacy`
+- [ ] App settings -> **Terms of Service URL:** `https://empiriausluge.hr/terms`
+- [ ] Business verification in Security Center: legal name, address and OIB must match
+      the registry. Try **email confirmation to `info@empiriausluge.hr`** first — a
+      domain-matched address often avoids the phone step.
+- [ ] Only if Meta explicitly asks for a phone: add one and leave it up until the WABA
+      is live, rather than removing it after the checkmark appears.
 
-- [ ] Email Routing live, `info@empiriausluge.hr` receives mail
-- [ ] Site live at `https://empiriausluge.hr` with company name, address, OIB and MBS in the footer
-- [ ] Business Manager → **Brand safety → Domains** → add domain → copy the meta tag into the
-      commented slot in `index.html` `<head>`, redeploy, verify
-- [ ] App settings → **Privacy Policy URL:** `https://empiriausluge.hr/privacy`
-- [ ] App settings → **Terms of Service URL:** `https://empiriausluge.hr/terms`
-- [ ] Business verification: try **email confirmation to `info@empiriausluge.hr`** first — a
-      domain-matched address often avoids the phone step entirely
-- [ ] Only if Meta explicitly asks for a phone: add one and leave it up until the WABA is live
+The verification meta tag lives in `index.html` `<head>`. Do not move it into a
+template or inject it with JavaScript — Meta re-checks periodically and fails the
+domain if the tag is not in the static head.
+
+Note: the WhatsApp Business API sender number cannot be a number already active on
+regular WhatsApp or the WhatsApp Business app. Plan on a separate number.
