@@ -49,32 +49,47 @@ Any push to `main` redeploys the site automatically.
 Note: Pages serves extensionless paths. `/privacy.html` 308-redirects to `/privacy`,
 so link and advertise the extensionless form.
 
-## Outbound mail — Brevo SMTP relay
+## Outbound mail — Resend SMTP relay
 
-Email Routing only *receives*. Sending as `info@empiriausluge.hr` goes through Brevo
+Email Routing only *receives*. Sending as `info@empiriausluge.hr` goes through Resend
 as an SMTP relay, with Gmail's "Send mail as" on top.
 
-The domain is authenticated in Brevo. These records are in the zone:
+The domain is verified in Resend, region **Ireland (eu-west-1)**. Records in the zone:
 
 | Type | Name | Content |
 | --- | --- | --- |
-| TXT | `@` | `brevo-code:fbf76cbbc6b87a86e44a01beabe8f8ba` |
-| CNAME | `brevo1._domainkey` | `b1.empiriausluge-hr.dkim.brevo.com` (DNS only) |
-| CNAME | `brevo2._domainkey` | `b2.empiriausluge-hr.dkim.brevo.com` (DNS only) |
-| TXT | `_dmarc` | `v=DMARC1; p=none; rua=mailto:rua@dmarc.brevo.com` |
+| TXT | `resend._domainkey` | DKIM public key |
+| CNAME | `rsend` | `rsend-euw1.forge.rmta.net` (DNS only) |
+| CNAME | `send` | `send.forge.rmta.net` (DNS only) — custom Return-Path |
 
-The DKIM records must stay **DNS only** — proxying a CNAME breaks DKIM lookup.
+Gmail SMTP settings: `smtp.resend.com`, port `587`, username `resend`, password is a
+Resend API key.
 
-Brevo authenticates by DKIM, so it needs no SPF include. The SPF TXT is locked by
-Email Routing and should be left alone; removing Cloudflare's include would break
-inbound forwarding.
+### Three things not to get wrong
 
-Brevo SMTP endpoint: `smtp-relay.brevo.com`, port `587`, login `b9a902001@smtp-brevo.com`,
-password is an SMTP key generated in Brevo under **SMTP & API**.
+1. **Do not add Resend's "Enable Receiving" MX record.** Resend offers
+   `MX @ -> inbound-smtp.eu-west-1.amazonaws.com` at priority 2. The Cloudflare Email
+   Routing MX records are priority 3/53/75, so that record would win and silently break
+   inbound mail to `info@`. Receiving is Cloudflare's job; Resend is send-only here.
+2. **Leave tracking metrics unconfigured** in Resend. Configuring a tracking subdomain
+   turns on the open pixel and link rewriting, which is why we left Brevo: its injected
+   beacon got mail tagged `[*Newsletter*]` by recipient gateways, and tracking opens of
+   named individuals is undisclosed personal data processing.
+3. **The DKIM/return-path CNAMEs must stay DNS-only.** Proxying them breaks DKIM.
 
-In Gmail, set **Settings → Accounts and Import → When replying to a message →
+No SPF change is needed — Resend aligns on the `send` return-path subdomain, so the
+apex SPF stays exactly as Email Routing wrote it. That record is locked by Email
+Routing; removing Cloudflare's include would break inbound forwarding.
+
+DMARC is `v=DMARC1; p=none;` — policy published, no aggregate reports. Tighten to
+`p=quarantine` only after a period of confirmed SPF/DKIM alignment.
+
+In Gmail, set **Settings -> Accounts and Import -> When replying to a message ->
 "Reply from the same address the message was sent to"**, so replies to `info@` go out
 as `info@`.
+
+Verified end to end on 16 September 2026: outbound via `eu-west-1.amazonses.com` with
+no newsletter tagging, inbound `dkim=pass` / `spf=pass` / `dmarc=pass`.
 
 ## Rebuilding from scratch
 
