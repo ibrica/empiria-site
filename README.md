@@ -27,7 +27,46 @@ python3 -m http.server 4321
 
 Then open <http://localhost:4321>.
 
-## Deploy — Cloudflare Pages
+## Live infrastructure
+
+Everything below is provisioned and serving as of 16 September 2026.
+
+| Piece | Value |
+| --- | --- |
+| Registrar | CARNET (`.hr`), delegation set to Cloudflare |
+| Nameservers | `kimora.ns.cloudflare.com`, `valentin.ns.cloudflare.com` |
+| Cloudflare zone | `empiriausluge.hr`, Free plan, active |
+| Hosting | Cloudflare Pages project `empiria-site`, connected to `ibrica/empiria-site` |
+| Build | Framework preset None · no build command · output `/` |
+| Domains | `empiriausluge.hr` (apex, flattened CNAME) and `www` |
+| `www` | 301 redirect to apex via a Redirect Rule, query string preserved |
+| TLS | Let's Encrypt, auto-renewed by Cloudflare |
+| Inbound mail | Email Routing: `info@empiriausluge.hr` → `empiria.hr@gmail.com` |
+| Mail DNS | 3× MX to `route{1,2,3}.mx.cloudflare.net`, SPF and DKIM TXT |
+
+Any push to `main` redeploys the site automatically.
+
+Note: Pages serves extensionless paths. `/privacy.html` 308-redirects to `/privacy`,
+so link and advertise the extensionless form.
+
+## Outbound mail — not yet configured
+
+Email Routing only *receives*. To reply as `info@empiriausluge.hr` from Gmail you need
+an SMTP relay plus Gmail's "Send mail as". When a relay is chosen, add its SPF include
+to the existing record and its DKIM record to the zone. The SPF TXT is locked by Email
+Routing and must be unlocked before editing:
+
+    v=spf1 include:_spf.mx.cloudflare.net include:<relay> ~all
+
+In Gmail, set **Settings → Accounts and Import → When replying to a message →
+"Reply from the same address the message was sent to"**, so replies to `info@` go out
+as `info@`.
+
+## Rebuilding from scratch
+
+### Cloudflare Pages
+
+
 
 1. Push this repo to GitHub.
 2. Cloudflare dashboard → **Workers & Pages** → **Create** → **Pages** → **Connect to Git** → pick this repo.
