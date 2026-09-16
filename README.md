@@ -58,8 +58,8 @@ Order matters — do these top to bottom.
 - [ ] Site live at `https://empiriausluge.hr` with company name, address, OIB and MBS in the footer
 - [ ] Business Manager → **Brand safety → Domains** → add domain → copy the meta tag into the
       commented slot in `index.html` `<head>`, redeploy, verify
-- [ ] App settings → **Privacy Policy URL:** `https://empiriausluge.hr/privacy.html`
-- [ ] App settings → **Terms of Service URL:** `https://empiriausluge.hr/terms.html`
+- [ ] App settings → **Privacy Policy URL:** `https://empiriausluge.hr/privacy`
+- [ ] App settings → **Terms of Service URL:** `https://empiriausluge.hr/terms`
 - [ ] Business verification: try **email confirmation to `info@empiriausluge.hr`** first — a
       domain-matched address often avoids the phone step entirely
 - [ ] Only if Meta explicitly asks for a phone: add one and leave it up until the WABA is live
