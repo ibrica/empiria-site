@@ -49,14 +49,28 @@ Any push to `main` redeploys the site automatically.
 Note: Pages serves extensionless paths. `/privacy.html` 308-redirects to `/privacy`,
 so link and advertise the extensionless form.
 
-## Outbound mail — not yet configured
+## Outbound mail — Brevo SMTP relay
 
-Email Routing only *receives*. To reply as `info@empiriausluge.hr` from Gmail you need
-an SMTP relay plus Gmail's "Send mail as". When a relay is chosen, add its SPF include
-to the existing record and its DKIM record to the zone. The SPF TXT is locked by Email
-Routing and must be unlocked before editing:
+Email Routing only *receives*. Sending as `info@empiriausluge.hr` goes through Brevo
+as an SMTP relay, with Gmail's "Send mail as" on top.
 
-    v=spf1 include:_spf.mx.cloudflare.net include:<relay> ~all
+The domain is authenticated in Brevo. These records are in the zone:
+
+| Type | Name | Content |
+| --- | --- | --- |
+| TXT | `@` | `brevo-code:fbf76cbbc6b87a86e44a01beabe8f8ba` |
+| CNAME | `brevo1._domainkey` | `b1.empiriausluge-hr.dkim.brevo.com` (DNS only) |
+| CNAME | `brevo2._domainkey` | `b2.empiriausluge-hr.dkim.brevo.com` (DNS only) |
+| TXT | `_dmarc` | `v=DMARC1; p=none; rua=mailto:rua@dmarc.brevo.com` |
+
+The DKIM records must stay **DNS only** — proxying a CNAME breaks DKIM lookup.
+
+Brevo authenticates by DKIM, so it needs no SPF include. The SPF TXT is locked by
+Email Routing and should be left alone; removing Cloudflare's include would break
+inbound forwarding.
+
+Brevo SMTP endpoint: `smtp-relay.brevo.com`, port `587`, login `b9a902001@smtp-brevo.com`,
+password is an SMTP key generated in Brevo under **SMTP & API**.
 
 In Gmail, set **Settings → Accounts and Import → When replying to a message →
 "Reply from the same address the message was sent to"**, so replies to `info@` go out
