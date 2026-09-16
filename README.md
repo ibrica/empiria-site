@@ -123,8 +123,9 @@ The site publishes `info@empiriausluge.hr`, so routing has to exist or mail to i
 - [x] Email Routing live, `info@empiriausluge.hr` receives mail
 - [x] Site live at `https://empiriausluge.hr` with company name, address, OIB and MBS
 - [x] Domain verified in Business Manager (meta-tag method, verified 16 Sep 2026)
-- [ ] App settings -> **Privacy Policy URL:** `https://empiriausluge.hr/privacy`
-- [ ] App settings -> **Terms of Service URL:** `https://empiriausluge.hr/terms`
+- [x] App Dashboard -> Settings -> Basic: Privacy Policy, Terms of Service, Data
+      deletion instructions and App domains all pointed at empiriausluge.hr
+      (these live at developers.facebook.com, NOT in Business Settings)
 - [ ] Business verification in Security Center: legal name, address and OIB must match
       the registry. Try **email confirmation to `info@empiriausluge.hr`** first — a
       domain-matched address often avoids the phone step.
