@@ -47,6 +47,10 @@ Everything below is provisioned and serving as of 16 September 2026.
 
 Any push to `main` redeploys the site automatically.
 
+Cloudflare caches `style.css` and `lang.js` at the edge for four hours, so a deploy that
+changes either one is invisible until that runs out. Every page links them as
+`/style.css?v=N` and `/lang.js?v=N`: bump `N` in all four pages whenever one of them changes.
+
 Note: Pages serves extensionless paths. `/privacy.html` 308-redirects to `/privacy`,
 so link and advertise the extensionless form.
 
