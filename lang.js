@@ -22,7 +22,11 @@
     var param = read(function () {
       return new URLSearchParams(window.location.search).get('lang');
     }, null);
-    if (param === 'hr' || param === 'en') return param;
+    if (param === 'hr' || param === 'en') {
+      // Remember it, so a shared ?lang=hr link stays Croatian on the next page.
+      read(function () { localStorage.setItem(STORE_KEY, param); });
+      return param;
+    }
 
     var stored = read(function () { return localStorage.getItem(STORE_KEY); }, null);
     if (stored === 'hr' || stored === 'en') return stored;
