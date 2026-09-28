@@ -245,6 +245,216 @@ a:hover { text-decoration: underline; }
 .doc li { margin-bottom: 0.4rem; }
 .doc strong { color: var(--text); font-weight: 600; }
 
+/* --- product teaser on the homepage --- */
+.teaser {
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 14px;
+  padding: 1.7rem;
+  color: var(--text);
+  grid-column: 1 / -1;
+}
+.teaser:hover { text-decoration: none; border-color: var(--accent); }
+.teaser h2 { font-size: 1.3rem; letter-spacing: -0.01em; margin: 0.2rem 0 0.5rem; }
+.teaser p { margin: 0 0 0.9rem; color: var(--muted); max-width: 60ch; }
+.teaser .more { color: var(--accent); font-weight: 600; font-size: 0.95rem; }
+.teaser .eyebrow { color: var(--accent); margin: 0; }
+
+.eyebrow {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--accent);
+  font-weight: 600;
+  margin: 0;
+}
+
+/* --- product page (recepcija) --- */
+.product-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: 3.5rem;
+  align-items: center;
+  padding-top: 4.5rem;
+  padding-bottom: 4rem;
+}
+
+.product-intro h1 {
+  font-size: clamp(2.1rem, 5.5vw, 3.2rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  font-weight: 650;
+  margin: 0.8rem 0 1.1rem;
+}
+
+.product-intro p { color: var(--muted); margin: 0 0 1.1rem; max-width: 56ch; }
+.product-intro .eyebrow { color: var(--accent); margin: 0; }
+.product-intro .lead {
+  color: var(--text);
+  font-size: clamp(1.1rem, 2vw, 1.28rem);
+  line-height: 1.5;
+}
+
+.claims { list-style: none; padding: 0; margin: 1.6rem 0 2rem; }
+.claims li {
+  position: relative;
+  padding-left: 1.9rem;
+  margin-bottom: 0.55rem;
+  font-weight: 550;
+}
+.claims li::before {
+  content: "";
+  position: absolute;
+  left: 0.2rem;
+  top: 0.42em;
+  width: 0.7rem;
+  height: 0.38rem;
+  border-left: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  transform: rotate(-45deg);
+}
+
+.cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 0.8rem 1.2rem; }
+.product-intro .cta-row { margin: 0; }
+.cta-note { color: var(--muted); font-size: 0.92rem; }
+
+/* the example conversation */
+.chat {
+  margin: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.chat-label {
+  margin: 0;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.13em;
+  color: var(--muted);
+  font-weight: 600;
+}
+.chat-label-staff {
+  margin-top: 0.9rem;
+  padding-top: 1rem;
+  border-top: 1px dashed var(--border);
+}
+
+.bubble {
+  max-width: 88%;
+  padding: 0.6rem 0.8rem;
+  border-radius: 12px;
+}
+.from-patient {
+  align-self: flex-end;
+  background: rgba(200, 169, 81, 0.16);
+  border: 1px solid rgba(200, 169, 81, 0.35);
+  border-bottom-right-radius: 4px;
+}
+.from-assistant {
+  align-self: flex-start;
+  background: #1c2027;
+  border: 1px solid var(--border);
+  border-bottom-left-radius: 4px;
+}
+
+.chips, .actions { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.55rem; }
+.chips span, .actions span {
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.12rem 0.65rem;
+  font-size: 0.82rem;
+  color: var(--text);
+}
+.chips .picked { border-color: var(--accent); color: var(--accent); }
+.staff-note { max-width: 100%; }
+.actions span { border-color: rgba(200, 169, 81, 0.45); color: var(--accent); font-weight: 600; }
+
+/* sections */
+.product-section { padding-top: 3.5rem; padding-bottom: 0.5rem; }
+.product-section h2 {
+  font-size: 1.6rem;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.5rem;
+}
+.product-section h3 { font-size: 1.02rem; font-weight: 640; margin: 0 0 0.45rem; }
+.product-section p, .product-section li { color: var(--muted); }
+
+.steps {
+  list-style: none;
+  counter-reset: step;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1.25rem;
+}
+.steps li {
+  counter-increment: step;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 1.5rem 1.6rem;
+}
+.steps li::before {
+  content: counter(step);
+  display: inline-grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  color: var(--accent);
+  font-weight: 650;
+  font-size: 0.9rem;
+  margin-bottom: 0.9rem;
+}
+.steps p { margin: 0; font-size: 0.97rem; }
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.6rem 2rem;
+}
+.features article { border-top: 2px solid var(--accent); padding-top: 0.9rem; }
+.features article h3 { font-size: 0.98rem; }
+.features p { margin: 0; font-size: 0.94rem; }
+
+.split {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem 2.5rem;
+}
+.split h2 { font-size: 1.3rem; margin-bottom: 1rem; }
+.split p { margin: 0 0 1rem; }
+.split ul { margin: 0; padding-left: 1.2rem; }
+.split li { margin-bottom: 0.5rem; }
+.split li::marker { color: var(--accent); }
+
+.product .contact { margin-top: 4rem; }
+.product .contact .mailto { margin-right: 0; }
+
+@media (max-width: 960px) {
+  .features { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 860px) {
+  .product-hero { grid-template-columns: minmax(0, 1fr); gap: 2.5rem; padding-top: 3rem; }
+  .split { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 520px) {
+  .features { grid-template-columns: minmax(0, 1fr); }
+}
+
 @media (max-width: 640px) {
   .hero { padding: 4rem 0 3rem; }
   .hero .eta { width: 60px; height: 60px; margin-bottom: 1.5rem; }
@@ -253,4 +463,73 @@ a:hover { text-decoration: underline; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+}
+
+/* Printing the product page gives a light A4 one-pager a clinic can file or pass on. */
+@page { size: A4; margin: 11mm 13mm; }
+
+@media print {
+  :root {
+    --bg: #fff;
+    --surface: #fff;
+    --border: #d4d8dd;
+    --text: #111;
+    --muted: #3d444c;
+    --accent: #8a6d1f;
+  }
+  body { font-size: 8.6pt; line-height: 1.38; }
+  .wrap { max-width: none; padding: 0; }
+  .site-header { position: static; background: none; backdrop-filter: none; }
+  .site-header .wrap { min-height: 0; padding-bottom: 2.5mm; }
+  .brand svg { width: 20px; height: 20px; }
+  .brand-name { font-size: 9.5pt; }
+  .lang-toggle, .cta-row, .product .contact .mailto { display: none; }
+
+  .product-hero {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+    gap: 7mm;
+    align-items: start;
+    padding: 5mm 0 0;
+  }
+  .product-intro h1 { font-size: 21pt; margin: 1mm 0 2mm; }
+  .product-intro .lead { font-size: 11pt; line-height: 1.35; }
+  .product-intro p { margin: 0 0 2mm; }
+  .claims { margin: 3mm 0 0; }
+  .claims li { margin-bottom: 1mm; padding-left: 1.4rem; }
+
+  .chat { padding: 3mm; gap: 1.5mm; font-size: 7.8pt; border-radius: 10px; }
+  .chat-label { font-size: 6.5pt; }
+  .chat-label-staff { margin-top: 1.5mm; padding-top: 2mm; }
+  .bubble { padding: 1.4mm 2.2mm; border-radius: 8px; }
+  .from-assistant { background: #f3f4f6; }
+  .chips, .actions { margin-top: 1.2mm; gap: 1mm; }
+  .chips span, .actions span { font-size: 7.4pt; padding: 0 2mm; }
+
+  .product-section { padding-top: 5mm; padding-bottom: 0; }
+  .product-section h2 { font-size: 12.5pt; margin: 0 0 2.5mm; }
+  .product-section h3 { font-size: 9pt; margin-bottom: 0.8mm; }
+
+  .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3mm; }
+  .steps li { padding: 2.8mm 3.2mm; border-radius: 8px; }
+  .steps li::before { width: 1.2rem; height: 1.2rem; font-size: 7.5pt; margin-bottom: 1.2mm; }
+  .steps p, .features p { font-size: 8.4pt; }
+
+  .features { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 3mm 4mm; }
+  .features article { padding-top: 1.5mm; border-top-width: 1.5px; }
+  .features article h3 { font-size: 8.8pt; }
+
+  .split { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6mm; }
+  .split h2 { font-size: 11pt; }
+  .split p { margin: 0 0 1.5mm; }
+  .split li { margin-bottom: 0.8mm; }
+
+  .steps li, .features article, .chat, .split > div { break-inside: avoid; }
+
+  .product .contact { margin-top: 5mm; padding: 3.5mm 0 0; }
+  .product .contact h2 { font-size: 12.5pt; margin: 0 0 1.5mm; }
+  .product .contact p { margin: 0; max-width: none; }
+  .product .contact p::after { content: " info@empiriausluge.hr"; color: var(--text); font-weight: 600; }
+  .site-footer { padding: 3mm 0 0; margin-top: 4mm; font-size: 7.5pt; }
+  .footer-bottom { padding-top: 2mm; }
+  .footer-links { display: none; }
 }

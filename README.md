@@ -9,6 +9,7 @@ No build step, no dependencies. Plain HTML + CSS + one small script.
 | Path | Purpose |
 | --- | --- |
 | `index.html` | Homepage: hero, services, contact, legal footer |
+| `recepcija.html` | Virtual Reception one-pager (the WhatsApp assistant for clinics), served at `/recepcija`; prints as a light handout |
 | `privacy.html` | Privacy Policy — **required** for the Meta / WhatsApp Business API app |
 | `terms.html` | Terms of Service |
 | `style.css` | All styling |
