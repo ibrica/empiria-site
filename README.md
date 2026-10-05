@@ -42,7 +42,7 @@ Everything below is provisioned and serving as of 16 September 2026.
 | Domains | `empiriausluge.hr` (apex, flattened CNAME) and `www` |
 | `www` | 301 redirect to apex via a Redirect Rule, query string preserved |
 | TLS | Let's Encrypt, auto-renewed by Cloudflare |
-| Inbound mail | Email Routing: `info@empiriausluge.hr` → `empiria.hr@gmail.com` |
+| Inbound mail | Email Routing: `info@` and `ivan@empiriausluge.hr` → `empiria.hr@gmail.com` |
 | Mail DNS | 3× MX to `route{1,2,3}.mx.cloudflare.net`, SPF and DKIM TXT |
 
 Any push to `main` redeploys the site automatically.
