@@ -56,19 +56,23 @@ so link and advertise the extensionless form.
 
 ## Outbound mail — Resend SMTP relay
 
-Email Routing only *receives*. Sending as `info@empiriausluge.hr` goes through Resend
-as an SMTP relay, with Gmail's "Send mail as" on top.
+Email Routing only *receives*. Sending as `info@` or `ivan@empiriausluge.hr` goes
+through Resend as an SMTP relay, with Gmail's "Send mail as" on top.
 
 The domain is verified in Resend, region **Ireland (eu-west-1)**. Records in the zone:
 
 | Type | Name | Content |
 | --- | --- | --- |
 | TXT | `resend._domainkey` | DKIM public key |
-| CNAME | `rsend` | `rsend-euw1.forge.rmta.net` (DNS only) |
-| CNAME | `send` | `send.forge.rmta.net` (DNS only) — custom Return-Path |
+| CNAME | `rsend` | `rsend-euw1.forge.rmta.net` (DNS only) — envelope sender in use (SES eu-west-1) |
+| CNAME | `send` | `send.forge.rmta.net` (DNS only) — Resend's other return-path; keep it |
 
 Gmail SMTP settings: `smtp.resend.com`, port `587`, username `resend`, password is a
-Resend API key.
+Resend API key. One key serves every address on the domain — no per-address keys.
+
+If a send-as address silently fails, check **Resend -> API keys**: a key showing
+"No activity" means Gmail never authenticated with it, which almost always means the
+key was copied incompletely (Resend displays it only once, at creation).
 
 ### Three things not to get wrong
 
@@ -82,8 +86,9 @@ Resend API key.
    named individuals is undisclosed personal data processing.
 3. **The DKIM/return-path CNAMEs must stay DNS-only.** Proxying them breaks DKIM.
 
-No SPF change is needed — Resend aligns on the `send` return-path subdomain, so the
-apex SPF stays exactly as Email Routing wrote it. That record is locked by Email
+No SPF change is needed — Resend's envelope sender is its own subdomain
+(`rsend.empiriausluge.hr`, SPF `include:amazonses.com`), which aligns with the From
+domain under relaxed DMARC alignment. The apex SPF stays exactly as Email Routing wrote it. That record is locked by Email
 Routing; removing Cloudflare's include would break inbound forwarding.
 
 DMARC is `v=DMARC1; p=none;` — policy published, no aggregate reports. Tighten to
@@ -95,6 +100,11 @@ as `info@`.
 
 Verified end to end on 16 September 2026: outbound via `eu-west-1.amazonses.com` with
 no newsletter tagging, inbound `dkim=pass` / `spf=pass` / `dmarc=pass`.
+
+mail-tester.com on 6 October 2026: **10/10** from `info@` — SPF pass via
+`rsend.empiriausluge.hr`, DKIM valid, DMARC pass, sent from
+`a3-25.smtp-out.eu-west-1.amazonses.com`. The only note was the absence of a
+`List-Unsubscribe` header, which is correct for one-to-one mail and should stay that way.
 
 ## Rebuilding from scratch
 
