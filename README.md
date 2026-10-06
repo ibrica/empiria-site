@@ -68,7 +68,9 @@ The domain is verified in Resend, region **Ireland (eu-west-1)**. Records in the
 | CNAME | `send` | `send.forge.rmta.net` (DNS only) — Resend's other return-path; keep it |
 
 Gmail SMTP settings: `smtp.resend.com`, port `587`, username `resend`, password is a
-Resend API key. One key serves every address on the domain — no per-address keys.
+Resend API key. One key can serve every address on the domain; currently `info@` uses
+the key named **Onboarding** and `ivan@` uses **Second**, so either can be revoked
+without touching the other.
 
 If a send-as address silently fails, check **Resend -> API keys**: a key showing
 "No activity" means Gmail never authenticated with it, which almost always means the
@@ -101,7 +103,7 @@ as `info@`.
 Verified end to end on 16 September 2026: outbound via `eu-west-1.amazonses.com` with
 no newsletter tagging, inbound `dkim=pass` / `spf=pass` / `dmarc=pass`.
 
-mail-tester.com on 6 October 2026: **10/10** from `info@` — SPF pass via
+mail-tester.com on 6 October 2026: **10/10** from both `info@` and `ivan@` — SPF pass via
 `rsend.empiriausluge.hr`, DKIM valid, DMARC pass, sent from
 `a3-25.smtp-out.eu-west-1.amazonses.com`. The only note was the absence of a
 `List-Unsubscribe` header, which is correct for one-to-one mail and should stay that way.
